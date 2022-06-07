@@ -5,7 +5,7 @@ const auth = require('../helper/auth');
 
 router.post("/crearMascota",auth.verificarToken,mascotaCtrl.crearMascota);
 router.get('/listarMascotas',mascotaCtrl.listar);
-router.put('/actualizarMascota',auth.verificarToken,mascotaCtrl.actualizarMascota);
+router.put('/actualizarMascota/:id',auth.verificarToken,mascotaCtrl.actualizarMascota);
 router.delete('/eliminarMascota/:id',auth.verificarToken,mascotaCtrl.eliminarMascota);
 router.get('/buscarPorCoincidencia/:especie',mascotaCtrl.buscarPorCoincidencia)
 
