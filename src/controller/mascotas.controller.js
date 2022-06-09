@@ -5,16 +5,29 @@ const uploadController = require("../controller/uploads.controller");
 const fs = require("fs");
 const multer = require("multer");
 const path = require("path");
-const mascotasModels = require("../models/mascotas.models");
 
 mascotaCtrl.crearMascota = async (req, res) => {
-  const { nombre, edad, especie, raza, tamano, imagen, idusuario } = req.body;
+  const {
+    nombre,
+    edad,
+    especie,
+    raza,
+    estadoDeEsterilizacion,
+    estadoDeVacunacion,
+    descripcionDeLaMascota,
+    fechaDeNacimiento,
+    imagen,
+    idusuario,
+  } = req.body;
   const nuevaMascota = new mascotaModels({
     nombre,
     edad,
     especie,
     raza,
-    tamano,
+    estadoDeEsterilizacion,
+    estadoDeVacunacion,
+    descripcionDeLaMascota,
+    fechaDeNacimiento,
     imagen,
     idusuario,
   });
@@ -25,7 +38,7 @@ mascotaCtrl.crearMascota = async (req, res) => {
   }); */
   //imagen:
 
-  const documentomascota = await mascotasModels.findOne({ nombre: nombre });
+  const documentomascota = await mascotaModels.findOne({ nombre: nombre });
   if (documentomascota) {
     res.json({
       mensaje: "la mascota ya existe",
@@ -35,12 +48,15 @@ mascotaCtrl.crearMascota = async (req, res) => {
     const name = imagen_path.split("\\");
     const imagenCargada = name[3];
 
-    const nuevaMascota = new mascotasModels({
+    const nuevaMascota = new mascotaModels({
       nombre,
       edad,
       especie,
       raza,
-      tamano,
+      estadoDeEsterilizacion,
+      estadoDeVacunacion,
+      descripcionDeLaMascota,
+      fechaDeNacimiento,
       imagen: imagenCargada,
       idusuario,
     });
@@ -50,17 +66,20 @@ mascotaCtrl.crearMascota = async (req, res) => {
       nombre: nombre,
     });
   } else {
-    const nuevoproducto = new productoModel({
+    const nuevaMascota = new mascotaModels({
       nombre,
       edad,
       especie,
       raza,
-      tamano,
+      estadoDeEsterilizacion,
+      estadoDeVacunacion,
+      descripcionDeLaMascota,
+      fechaDeNacimiento,
       imagen: null,
       idusuario,
     });
 
-    await nuevoproducto.save();
+    await nuevaMascota.save();
     res.json({
       mensaje: "Creado",
       nombre: nombre,
